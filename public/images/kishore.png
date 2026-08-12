@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="100%" stop-color="#E5E5E5"/>
+    </linearGradient>
+    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C39E"/>
+      <stop offset="100%" stop-color="#D4A77D"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+  <rect x="140" y="140" width="520" height="720" rx="12" fill="none" stroke="#E10600" stroke-width="2" stroke-opacity="0.3"/>
+  <rect x="130" y="130" width="20" height="20" fill="#E10600"/>
+  <rect x="650" y="850" width="20" height="20" fill="#E10600"/>
+  <g>
+    <path d="M 220,1000 L 280,560 L 400,640 L 520,560 L 580,1000 Z" fill="#FFFFFF"/>
+    <path d="M 120,1000 L 240,620 L 320,560 L 400,600 L 480,560 L 560,620 L 680,1000 Z" fill="url(#suitGrad)"/>
+    <polygon points="340,540 400,640 460,540 440,510 360,510" fill="#FFFFFF"/>
+    <polygon points="390,530 410,530 420,780 400,820 380,780" fill="#111111"/>
+    <polygon points="386,515 414,515 410,535 390,535" fill="#000000"/>
+    <rect x="365" y="440" width="70" height="90" rx="10" fill="url(#skinGrad)"/>
+    <ellipse cx="400" cy="350" rx="105" ry="135" fill="url(#skinGrad)"/>
+    <path d="M 285,340 C 280,210 330,190 400,190 C 470,190 520,210 515,340 C 500,270 460,225 400,225 C 340,225 300,270 285,340 Z" fill="#1B1B1B"/>
+    <ellipse cx="355" cy="335" rx="12" ry="7" fill="#FFFFFF"/>
+    <circle cx="355" cy="335" r="5" fill="#111111"/>
+    <ellipse cx="445" cy="335" rx="12" ry="7" fill="#FFFFFF"/>
+    <circle cx="445" cy="335" r="5" fill="#111111"/>
+    <path d="M 370,405 Q 400,420 430,405" stroke="#A36F46" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>

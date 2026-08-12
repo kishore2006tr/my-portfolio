@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" width="800" height="1000">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="100%" stop-color="#E5E5E5"/>
+    </linearGradient>
+    <linearGradient id="suitGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1A1A1A"/>
+      <stop offset="100%" stop-color="#111111"/>
+    </linearGradient>
+    <linearGradient id="skinGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C39E"/>
+      <stop offset="100%" stop-color="#D4A77D"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Studio Background -->
+  <rect width="800" height="1000" fill="url(#bgGrad)"/>
+  
+  <!-- Subtle Grid Pattern Lines -->
+  <path d="M0,200 H800 M0,400 H800 M0,600 H800 M0,800 H800" stroke="#000" stroke-opacity="0.04" stroke-width="1"/>
+  <path d="M200,0 V1000 M400,0 V1000 M600,0 V1000" stroke="#000" stroke-opacity="0.04" stroke-width="1"/>
+
+  <!-- Red Accent Frame Backdrop -->
+  <rect x="140" y="140" width="520" height="720" rx="12" fill="none" stroke="#E10600" stroke-width="2" stroke-opacity="0.3"/>
+  <rect x="130" y="130" width="20" height="20" fill="#E10600"/>
+  <rect x="650" y="850" width="20" height="20" fill="#E10600"/>
+
+  <!-- Body Group -->
+  <g filter="url(#shadow)">
+    <!-- White Shirt -->
+    <path d="M 220,1000 L 280,560 L 400,640 L 520,560 L 580,1000 Z" fill="#FFFFFF"/>
+    
+    <!-- Dark Jacket / Outer Silhouette -->
+    <path d="M 120,1000 L 240,620 L 320,560 L 400,600 L 480,560 L 560,620 L 680,1000 Z" fill="url(#suitGrad)"/>
+    
+    <!-- White Shirt Collar & Chest -->
+    <polygon points="340,540 400,640 460,540 440,510 360,510" fill="#FFFFFF"/>
+    <polygon points="340,540 400,600 360,510" fill="#F0F0F0"/>
+    <polygon points="460,540 400,600 440,510" fill="#E8E8E8"/>
+
+    <!-- Black Tie (As requested: White shirt and black tie) -->
+    <polygon points="390,530 410,530 420,780 400,820 380,780" fill="#111111"/>
+    <polygon points="392,530 408,530 415,775 400,810 388,775" fill="#1A1A1A"/>
+    <!-- Tie Knot -->
+    <polygon points="386,515 414,515 410,535 390,535" fill="#000000"/>
+
+    <!-- Neck -->
+    <rect x="365" y="440" width="70" height="90" rx="10" fill="url(#skinGrad)"/>
+    <path d="M 365,490 Q 400,520 435,490 L 435,530 L 365,530 Z" fill="#C4956C" opacity="0.4"/>
+
+    <!-- Head & Face -->
+    <ellipse cx="400" cy="350" rx="105" ry="135" fill="url(#skinGrad)"/>
+
+    <!-- Hair -->
+    <path d="M 285,340 C 280,210 330,190 400,190 C 470,190 520,210 515,340 C 500,270 460,225 400,225 C 340,225 300,270 285,340 Z" fill="#1B1B1B"/>
+    <path d="M 290,310 Q 400,200 510,310 Q 460,240 400,240 Q 340,240 290,310 Z" fill="#111111"/>
+
+    <!-- Ears -->
+    <ellipse cx="290" cy="360" rx="14" ry="24" fill="url(#skinGrad)"/>
+    <ellipse cx="510" cy="360" rx="14" ry="24" fill="url(#skinGrad)"/>
+
+    <!-- Eyebrows -->
+    <path d="M 330,315 Q 355,305 380,315" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M 420,315 Q 445,305 470,315" stroke="#111" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+    <!-- Eyes -->
+    <ellipse cx="355" cy="335" rx="12" ry="7" fill="#FFFFFF"/>
+    <circle cx="355" cy="335" r="5" fill="#111111"/>
+    <ellipse cx="445" cy="335" rx="12" ry="7" fill="#FFFFFF"/>
+    <circle cx="445" cy="335" r="5" fill="#111111"/>
+
+    <!-- Nose -->
+    <path d="M 395,330 L 400,370 L 390,375" stroke="#B8865A" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+    <!-- Subtle Confident Smile -->
+    <path d="M 370,405 Q 400,420 430,405" stroke="#A36F46" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Technical Telemetry Badge Overlay -->
+  <g transform="translate(480, 720)">
+    <rect width="240" height="70" rx="4" fill="#111111" stroke="#E10600" stroke-width="1.5"/>
+    <circle cx="24" cy="35" r="5" fill="#E10600"/>
+    <text x="40" y="32" font-family="monospace" font-size="12" font-weight="bold" fill="#FFFFFF">KISHORE // CSE</text>
+    <text x="40" y="50" font-family="monospace" font-size="10" fill="#666666">WHITE SHIRT + BLACK TIE</text>
+  </g>
+</svg>
