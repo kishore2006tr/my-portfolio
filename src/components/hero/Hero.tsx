@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, ArrowDown, Cpu, Code2, Database, Github, Linkedin, Mail, Cloud } from 'lucide-react';
 import { fadeUpVariant, staggerContainerVariant } from '@/lib/animations';
 import { SOCIAL_LINKS } from '@/data/socials';
+import { getAssetPath } from '@/lib/basePath';
 
 const FLOATING_BADGES = [
   { label: 'AI / ML', icon: Cpu, top: '8%', left: '-6%', delay: 0 },
@@ -153,7 +154,7 @@ export default function Hero() {
               {/* 100% Crisp Visible Photo Frame */}
               <div className="relative w-full aspect-[4/5] bg-light border border-border rounded-sm overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/kishore.png"
+                  src={getAssetPath('/images/kishore.png')}
                   alt="Kishore - Professional Portrait in White Shirt and Black Tie"
                   fill
                   priority

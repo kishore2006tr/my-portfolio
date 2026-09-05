@@ -84,7 +84,7 @@ export default function Navbar() {
 
         {/* Right Action & Mobile Toggle */}
         <div className="flex items-center gap-3">
-          <a
+          <Link
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
@@ -92,7 +92,7 @@ export default function Navbar() {
           >
             <FileText size={14} />
             <span>RESUME</span>
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -133,7 +133,7 @@ export default function Navbar() {
               );
             })}
 
-            <a
+            <Link
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -141,7 +141,7 @@ export default function Navbar() {
             >
               <FileText size={16} />
               <span>VIEW RESUME</span>
-            </a>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { Cpu, Code2, Database, Lightbulb, ArrowRight, ShieldCheck, Cloud } from 'lucide-react';
 import { fadeUpVariant, staggerContainerVariant } from '@/lib/animations';
 import CertificatesAchievements from '@/components/certificates/CertificatesAchievements';
+import { getAssetPath } from '@/lib/basePath';
 
 const PILLARS = [
   {
@@ -101,7 +102,7 @@ export default function AboutPage() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[4/5] bg-light border border-border rounded-sm overflow-hidden shadow-xl">
               <Image
-                src="/images/kishore.png"
+                src={getAssetPath('/images/kishore.png')}
                 alt="Kishore - Professional Photograph in white shirt and black tie"
                 fill
                 priority

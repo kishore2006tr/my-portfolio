@@ -39,9 +39,8 @@ jobs:
       - name: Build with Next.js (Static Export)
         run: npm run build
 
-      - name: Ensure CNAME and .nojekyll exist in export output
+      - name: Ensure .nojekyll exists in export output
         run: |
-          echo "kishore.me" > ./out/CNAME
           touch ./out/.nojekyll
 
       - name: Upload artifact
