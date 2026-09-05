@@ -3,25 +3,50 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Linkedin, Github, Send, CheckCircle2, AlertCircle } from 'lucide-react';
+import { SOCIAL_LINKS } from '@/data/socials';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [submittedData, setSubmittedData] = useState<{ name: string; email: string; message: string } | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setStatus('error');
-      setErrorMessage('Please complete all required fields.');
+      setErrorMessage('Please complete all required fields (Name, Email, and Message).');
+      return;
+    }
+
+    if (!formData.email.includes('@') || !formData.email.includes('.')) {
+      setStatus('error');
+      setErrorMessage('Please enter a valid email address.');
       return;
     }
 
     setStatus('submitting');
+    
+    const recipient = SOCIAL_LINKS.email.address; // kishore2006r@gmail.com
+    const subject = `Portfolio Inquiry from ${formData.name.trim()}`;
+    const body = `Hi Kishore,\n\nName: ${formData.name.trim()}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}\n\n---\nSent via Kishore Portfolio Contact Form`;
+
+    const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    setSubmittedData({ ...formData });
+
+    // Open user's email client directly addressed to kishore2006r@gmail.com
+    try {
+      window.location.href = mailtoUrl;
+    } catch {
+      // Fallback
+    }
+
     setTimeout(() => {
       setStatus('success');
       setFormData({ name: '', email: '', message: '' });
-    }, 800);
+    }, 400);
   };
 
   return (
@@ -55,40 +80,37 @@ export default function ContactPage() {
               or data analytics initiative worth solving? Let's connect.
             </p>
 
-            {/* Direct Action Links */}
-            <div className="space-y-3 font-mono text-xs font-bold mb-8">
+            {/* Direct Action Links (Small Logos) */}
+            <div className="flex items-center gap-3 mb-8">
               <a
-                href="mailto:kishore@example.com"
-                className="w-full sm:w-auto p-4 bg-light border border-border rounded-sm flex items-center justify-between hover:border-red hover:text-red transition-all group"
+                href={SOCIAL_LINKS.email.mailto}
+                className="w-10 h-10 bg-white border border-border rounded-sm flex items-center justify-center text-muted hover:text-red hover:border-red hover:bg-red-subtle transition-all group shadow-sm"
+                title={`Email: ${SOCIAL_LINKS.email.address}`}
+                aria-label={`Email: ${SOCIAL_LINKS.email.address}`}
               >
-                <div className="flex items-center gap-3">
-                  <Mail size={18} className="text-red" />
-                  <span>EMAIL ME → kishore@example.com</span>
-                </div>
+                <Mail size={18} className="group-hover:scale-110 transition-transform" />
               </a>
 
               <a
-                href="https://linkedin.com"
+                href={SOCIAL_LINKS.linkedin.url}
                 target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto p-4 bg-light border border-border rounded-sm flex items-center justify-between hover:border-red hover:text-red transition-all group"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white border border-border rounded-sm flex items-center justify-center text-muted hover:text-red hover:border-red hover:bg-red-subtle transition-all group shadow-sm"
+                title={`LinkedIn: ${SOCIAL_LINKS.linkedin.profilePath}`}
+                aria-label="LinkedIn Profile"
               >
-                <div className="flex items-center gap-3">
-                  <Linkedin size={18} className="text-red" />
-                  <span>LINKEDIN PROFILE → linkedin.com/in/kishore</span>
-                </div>
+                <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
               </a>
 
               <a
-                href="https://github.com"
+                href={SOCIAL_LINKS.github.url}
                 target="_blank"
-                rel="noreferrer"
-                className="w-full sm:w-auto p-4 bg-light border border-border rounded-sm flex items-center justify-between hover:border-red hover:text-red transition-all group"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white border border-border rounded-sm flex items-center justify-center text-muted hover:text-red hover:border-red hover:bg-red-subtle transition-all group shadow-sm"
+                title={`GitHub: ${SOCIAL_LINKS.github.username} (${SOCIAL_LINKS.github.profilePath})`}
+                aria-label={`GitHub: ${SOCIAL_LINKS.github.username}`}
               >
-                <div className="flex items-center gap-3">
-                  <Github size={18} className="text-red" />
-                  <span>GITHUB REPOSITORIES → github.com/kishore</span>
-                </div>
+                <Github size={18} className="group-hover:scale-110 transition-transform" />
               </a>
             </div>
           </div>
@@ -99,17 +121,77 @@ export default function ContactPage() {
               SEND A MESSAGE
             </h2>
 
-            {status === 'success' ? (
-              <div className="p-6 bg-white border border-green-500 rounded-sm text-center">
-                <CheckCircle2 size={36} className="text-green-600 mx-auto mb-3" />
-                <h3 className="font-display font-bold text-xl text-black mb-2">MESSAGE SENT SUCCESSFULLY</h3>
-                <p className="text-xs font-mono text-muted">Thank you for reaching out! Kishore will respond within 24 hours.</p>
-                <button 
-                  onClick={() => setStatus('idle')}
-                  className="mt-6 font-mono text-xs font-bold text-white bg-black px-4 py-2 rounded-sm"
-                >
-                  SEND ANOTHER MESSAGE
-                </button>
+            {status === 'success' && submittedData ? (
+              <div className="p-6 bg-white border border-border border-t-4 border-t-red rounded-sm text-left space-y-5">
+                <div className="flex items-center gap-3">
+                  <CheckCircle2 size={28} className="text-red" />
+                  <div>
+                    <h3 className="font-display font-bold text-xl text-black">MESSAGE TRANSMITTED</h3>
+                    <span className="font-mono text-xs text-muted">TARGET RECIPIENT: {SOCIAL_LINKS.email.address}</span>
+                  </div>
+                </div>
+
+                <p className="text-xs text-zinc-600 font-mono leading-relaxed bg-light p-3.5 rounded-sm border border-border">
+                  Your message has been addressed directly to <strong className="text-black">{SOCIAL_LINKS.email.address}</strong>. 
+                  If your mail app did not open automatically, choose an option below to deliver it:
+                </p>
+
+                {/* Direct Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&fs=1&to=${SOCIAL_LINKS.email.address}&su=${encodeURIComponent(`Portfolio Inquiry from ${submittedData.name}`)}&body=${encodeURIComponent(`Hi Kishore,\n\nName: ${submittedData.name}\nEmail: ${submittedData.email}\n\nMessage:\n${submittedData.message}\n\n---\nSent via Kishore Portfolio Contact Form`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 font-mono text-xs font-bold text-white bg-red hover:bg-black py-3 px-4 rounded-sm text-center transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Mail size={15} />
+                    <span>OPEN IN GMAIL</span>
+                  </a>
+
+                  <a
+                    href={`mailto:${SOCIAL_LINKS.email.address}?subject=${encodeURIComponent(`Portfolio Inquiry from ${submittedData.name}`)}&body=${encodeURIComponent(`Hi Kishore,\n\nName: ${submittedData.name}\nEmail: ${submittedData.email}\n\nMessage:\n${submittedData.message}\n\n---\nSent via Kishore Portfolio Contact Form`)}`}
+                    className="flex-1 font-mono text-xs font-bold text-black bg-light hover:bg-zinc-200 border border-border py-3 px-4 rounded-sm text-center transition-colors flex items-center justify-center gap-2"
+                  >
+                    <Send size={15} />
+                    <span>OPEN DEFAULT MAIL</span>
+                  </a>
+                </div>
+
+                {/* Summary Box */}
+                <div className="bg-light p-3.5 border border-border rounded-sm text-xs font-mono">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-muted font-bold">MESSAGE SUMMARY</span>
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(
+                          `To: ${SOCIAL_LINKS.email.address}\nFrom: ${submittedData.name} <${submittedData.email}>\n\nMessage:\n${submittedData.message}`
+                        );
+                        setCopied(true);
+                        setTimeout(() => setCopied(false), 2000);
+                      }}
+                      className="text-red hover:underline font-bold"
+                    >
+                      {copied ? "COPIED TO CLIPBOARD!" : "COPY MESSAGE"}
+                    </button>
+                  </div>
+                  <div className="text-zinc-700 space-y-1">
+                    <p><span className="text-muted">TO:</span> {SOCIAL_LINKS.email.address}</p>
+                    <p><span className="text-muted">FROM:</span> {submittedData.name} ({submittedData.email})</p>
+                    <p className="mt-2 text-zinc-900 border-t border-border pt-2 whitespace-pre-wrap">{submittedData.message}</p>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <button 
+                    onClick={() => {
+                      setStatus('idle');
+                      setSubmittedData(null);
+                    }}
+                    className="font-mono text-xs font-bold text-muted hover:text-black transition-colors"
+                  >
+                    ← SEND ANOTHER MESSAGE
+                  </button>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">

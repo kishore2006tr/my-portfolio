@@ -2,29 +2,44 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Layers, Brain, Zap, GitBranch, Terminal } from 'lucide-react';
+import { Brain, Bot, Globe, BarChart3, Cloud } from 'lucide-react';
 import { fadeUpVariant } from '@/lib/animations';
 
-const AI_CAPABILITIES = [
+const CAPABILITIES = [
   {
-    title: "COMPUTER VISION",
-    tech: "YOLOv8 • PyTorch • TensorRT • OpenCV",
-    desc: "Real-time DICOM pathology detection & urban traffic tracking operating under 50ms latencies with INT8 quantization."
+    engine: "01 // AI ENGINE",
+    title: "AI / MACHINE LEARNING",
+    tech: "Python • Scikit-learn • PyTorch • OpenCV",
+    desc: "Developing machine learning solutions for classification, prediction, computer vision, and intelligent automation.",
+    icon: Brain,
   },
   {
+    engine: "02 // GEN AI ENGINE",
     title: "GENERATIVE AI & RAG",
-    tech: "Llama 3 • LangChain • Pinecone • vLLM",
-    desc: "Enterprise retrieval augmented generation platforms combining hybrid dense/sparse vector search with zero hallucination."
+    tech: "Gemini • OpenAI • LangChain • RAG",
+    desc: "Building AI-powered applications with LLMs, document analysis, AI chatbots, summarization, and retrieval-augmented generation.",
+    icon: Bot,
   },
   {
-    title: "NLP & CODE SYNTHESIS",
-    tech: "Whisper • Tree-Sitter AST • SpaCy",
-    desc: "Voice-driven AST code generators translating natural speech into verified syntax trees and executable functions."
+    engine: "03 // FULL-STACK ENGINE",
+    title: "WEB APPLICATIONS",
+    tech: "React • Next.js • Node.js • Express • MongoDB • Supabase",
+    desc: "Building responsive full-stack applications with authentication, REST APIs, databases, real-time functionality, and modern user interfaces.",
+    icon: Globe,
   },
   {
-    title: "GRAPH MACHINE LEARNING",
-    tech: "PyTorch Geometric • Neo4j • R-GCN",
-    desc: "Relational graph neural networks spotting syndicate financial fraud loops and anomaly networks across millions of nodes."
+    engine: "04 // DATA ENGINE",
+    title: "DATA ANALYTICS",
+    tech: "Python • Pandas • NumPy • SQL • Power BI",
+    desc: "Transforming datasets into meaningful insights through data cleaning, exploratory data analysis, visualization, dashboards, and predictive analytics.",
+    icon: BarChart3,
+  },
+  {
+    engine: "05 // CLOUD ENGINE",
+    title: "CLOUD & DEPLOYMENT",
+    tech: "AWS • EC2 • S3 • IAM • Lambda",
+    desc: "Deploying and managing modern applications using cloud infrastructure, storage, serverless computing, and secure cloud services.",
+    icon: Cloud,
   }
 ];
 
@@ -40,43 +55,50 @@ export default function IntelligenceEngine() {
               SYSTEM CAPABILITIES // 01
             </span>
             <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-white uppercase">
-              INTELLIGENCE ENGINE
+              INTELLIGENCE + APPLICATION ENGINE
             </h2>
           </div>
           <p className="text-sm text-zinc-400 max-w-md">
-            Architecting low-latency deep learning models, generative AI workflows, and multi-tenant vector pipelines.
+            Building practical AI/ML solutions, Generative AI applications, full-stack web platforms, data-driven systems, and cloud deployments.
           </p>
         </div>
 
-        {/* 4-Card Intelligence Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {AI_CAPABILITIES.map((cap, idx) => (
-            <motion.div
-              key={cap.title}
-              variants={fadeUpVariant}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="p-8 bg-darkSurface border border-darkBorder rounded-sm hover:border-red transition-all group"
-            >
-              <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-xs font-bold text-red">0{idx + 1} // MODEL ENGINE</span>
-                <Cpu size={18} className="text-zinc-500 group-hover:text-red transition-colors" />
-              </div>
+        {/* 5-Card Intelligence Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          {CAPABILITIES.map((cap, idx) => {
+            const Icon = cap.icon;
+            return (
+              <motion.div
+                key={cap.title}
+                variants={fadeUpVariant}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                className={`p-8 bg-darkSurface border border-darkBorder rounded-sm hover:border-red transition-all group flex flex-col justify-between ${
+                  idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="font-mono text-xs font-bold text-red">{cap.engine}</span>
+                    <Icon size={20} className="text-zinc-500 group-hover:text-red transition-colors" />
+                  </div>
 
-              <h3 className="font-display text-2xl font-bold tracking-tight text-white mb-2 group-hover:text-red transition-colors">
-                {cap.title}
-              </h3>
+                  <h3 className="font-display text-2xl font-bold tracking-tight text-white mb-2 group-hover:text-red transition-colors">
+                    {cap.title}
+                  </h3>
 
-              <div className="font-mono text-xs text-red font-semibold mb-4 bg-red/10 border border-red/20 px-2.5 py-1 rounded-sm w-fit">
-                {cap.tech}
-              </div>
+                  <div className="font-mono text-xs text-red font-semibold mb-4 bg-red/10 border border-red/20 px-2.5 py-1 rounded-sm w-fit">
+                    {cap.tech}
+                  </div>
 
-              <p className="text-sm text-zinc-400 leading-relaxed">
-                {cap.desc}
-              </p>
-            </motion.div>
-          ))}
+                  <p className="text-sm text-zinc-400 leading-relaxed">
+                    {cap.desc}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

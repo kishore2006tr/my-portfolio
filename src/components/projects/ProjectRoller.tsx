@@ -2,8 +2,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Layers, SlidersHorizontal } from 'lucide-react';
-import { projectsData, filterCategories, Project } from '@/data/projects';
+import { Layers, Sparkles, SlidersHorizontal } from 'lucide-react';
+import { projectsData, filterCategories, Project, FilterCategory } from '@/data/projects';
 import ProjectCard from './ProjectCard';
 
 interface ProjectRollerProps {
@@ -11,65 +11,59 @@ interface ProjectRollerProps {
 }
 
 export default function ProjectRoller({ showTitle = true }: ProjectRollerProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [selectedCategory, setSelectedCategory] = useState<FilterCategory>('ALL');
 
-  // Filter projects by active category
+  // Filter projects by domain category
   const filteredProjects = useMemo(() => {
-    return projectsData.filter((p) => {
+    let list = projectsData.filter((p) => {
       if (selectedCategory === 'ALL') return true;
-      if (p.category === selectedCategory) return true;
-      if (p.allCategories && p.allCategories.includes(selectedCategory)) return true;
-      return false;
+      if (selectedCategory === 'AI / ML') {
+        return p.domain.includes('AI') || p.domain.includes('Machine Learning') || p.secondaryDomains.includes('AI / ML');
+      }
+      if (selectedCategory === 'DATA ANALYTICS') {
+        return p.domain.includes('Data Analytics') || p.secondaryDomains.includes('Data Analytics');
+      }
+      if (selectedCategory === 'FULL STACK') {
+        return p.domain.includes('Full Stack') || p.secondaryDomains.includes('Full Stack');
+      }
+      return true;
     });
+
+    // Sort with Featured projects first
+    return [...list].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
   }, [selectedCategory]);
 
-  // Ensure activeIndex is within bounds when filter changes
-  const safeIndex = Math.min(activeIndex, Math.max(0, filteredProjects.length - 1));
-  const activeProject = filteredProjects[safeIndex] || filteredProjects[0];
-
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev > 0 ? prev - 1 : filteredProjects.length - 1));
-  };
-
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev < filteredProjects.length - 1 ? prev + 1 : 0));
-  };
-
   return (
-    <section className="py-20 bg-white border-b border-border overflow-hidden">
+    <section id="projects" className="py-20 bg-white border-b border-border overflow-hidden select-none">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         
-        {/* Optional Header Banner */}
+        {/* Section Header */}
         {showTitle && (
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border pb-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border pb-8">
             <div>
               <span className="font-mono text-xs font-bold tracking-widest text-red uppercase block mb-2">
-                CINEMATIC SHOWCASE // 03
+                PROJECT PORTFOLIO // 03
               </span>
               <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-black uppercase">
-                PROJECT ROLLER
+                FEATURED WORK
               </h2>
             </div>
-            <p className="text-sm text-muted max-w-md">
-              Horizontal interactive showcase featuring low-latency AI diagnostics, multi-tenant RAG engines, and high-frequency quant analytics.
+            <p className="text-sm text-muted max-w-md leading-relaxed">
+              Production systems, autonomous AI agents, and full-stack platforms built with modern architectures and verified implementations.
             </p>
           </div>
         )}
 
-        {/* Category Filters Bar */}
-        <div className="flex items-center justify-between flex-wrap gap-4 mb-10 pb-4 border-b border-border/50">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {/* Domain Filters Navigation Bar */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10 pb-4 border-b border-border/60">
+          <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0 scrollbar-none">
             {filterCategories.map((cat) => {
               const isActive = selectedCategory === cat;
               return (
                 <button
                   key={cat}
-                  onClick={() => {
-                    setSelectedCategory(cat);
-                    setActiveIndex(0);
-                  }}
-                  className={`font-mono text-xs font-bold tracking-wider px-4 py-2 rounded-sm border transition-all whitespace-nowrap flex items-center gap-1.5 ${
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`font-mono text-xs font-bold tracking-wider px-4 py-2.5 rounded-sm border transition-all whitespace-nowrap flex items-center gap-2 cursor-pointer ${
                     isActive
                       ? 'bg-black text-white border-black shadow-sm'
                       : 'bg-white text-muted border-border hover:border-black hover:text-black'
@@ -82,65 +76,23 @@ export default function ProjectRoller({ showTitle = true }: ProjectRollerProps) 
             })}
           </div>
 
-          {/* Dynamic Counter */}
+          {/* Telemetry Counter */}
           <div className="font-mono text-xs font-bold text-black flex items-center gap-2">
             <Layers size={15} className="text-red" />
-            <span>{filteredProjects.length} PROJECTS FILTERED</span>
+            <span>
+              {filteredProjects.length} {filteredProjects.length === 1 ? 'PROJECT' : 'PROJECTS'}
+            </span>
           </div>
         </div>
 
-        {/* Roller Navigation Controls Header */}
-        <div className="flex items-center justify-between mb-8 font-mono text-xs">
-          <button
-            onClick={handlePrev}
-            className="flex items-center gap-2 font-bold text-black hover:text-red transition-colors"
-          >
-            <ArrowLeft size={16} /> PREVIOUS
-          </button>
-
-          <div className="flex items-center gap-2 font-bold text-red bg-red-subtle border border-red-border px-3 py-1 rounded-sm">
-            <span>FEATURED PROJECT {safeIndex + 1} / {filteredProjects.length}</span>
-          </div>
-
-          <button
-            onClick={handleNext}
-            className="flex items-center gap-2 font-bold text-black hover:text-red transition-colors"
-          >
-            NEXT <ArrowRight size={16} />
-          </button>
-        </div>
-
-        {/* HORIZONTAL ROLLER CAROUSEL CONTAINER */}
-        <div className="relative min-h-[520px] flex items-center justify-center py-6">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeProject?.slug || 'project-roller'}
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="w-full max-w-3xl"
-            >
-              {activeProject && (
-                <ProjectCard project={activeProject} isActive={true} />
-              )}
-            </motion.div>
+        {/* RESPONSIVE PROJECTS GRID (Desktop: 3 per row, Tablet: 2 per row, Mobile: 1 per row) */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project) => (
+              <ProjectCard key={project.name} project={project} />
+            ))}
           </AnimatePresence>
-        </div>
-
-        {/* Roller Dots Navigation */}
-        <div className="flex justify-center items-center gap-2 mt-8">
-          {filteredProjects.map((p, idx) => (
-            <button
-              key={p.slug}
-              onClick={() => setActiveIndex(idx)}
-              className={`h-2 rounded-full transition-all ${
-                idx === safeIndex ? 'w-8 bg-red' : 'w-2 bg-border hover:bg-black'
-              }`}
-              aria-label={`Go to project ${p.title}`}
-            />
-          ))}
-        </div>
+        </motion.div>
 
       </div>
     </section>

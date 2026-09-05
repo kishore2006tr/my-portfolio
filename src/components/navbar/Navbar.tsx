@@ -53,7 +53,7 @@ export default function Navbar() {
           
           <div className="hidden sm:flex flex-col">
             <span className="font-display font-bold text-xs tracking-wider text-black">KISHORE</span>
-            <span className="font-mono text-[10px] text-muted tracking-widest">CSE • AI/ML • DATA</span>
+            <span className="font-mono text-[10px] text-muted tracking-widest">CSE • AI/ML • CLOUD</span>
           </div>
         </Link>
 

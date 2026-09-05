@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowUp, Github, Linkedin, Mail } from 'lucide-react';
+import { SOCIAL_LINKS } from '@/data/socials';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -27,11 +28,11 @@ export default function Footer() {
             </h3>
 
             <p className="font-mono text-xs font-semibold text-red tracking-widest uppercase mb-3">
-              CSE • AI/ML • FULL-STACK • DATA
+              CSE • AI/ML • FULL-STACK • DATA • CLOUD
             </p>
 
             <p className="text-sm text-zinc-400 leading-relaxed">
-              Building intelligent digital experiences through code, AI, and data.
+              Building intelligent digital experiences through code, AI, cloud, and data.
             </p>
           </div>
 
@@ -57,24 +58,27 @@ export default function Footer() {
 
           <div className="flex items-center gap-6">
             <a
-              href="https://github.com"
+              href={SOCIAL_LINKS.github.url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-red transition-colors"
+              title={`GitHub: ${SOCIAL_LINKS.github.username}`}
             >
-              <Github size={15} /> GITHUB
+              <Github size={15} /> {SOCIAL_LINKS.github.username}
             </a>
             <a
-              href="https://linkedin.com"
+              href={SOCIAL_LINKS.linkedin.url}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 hover:text-red transition-colors"
+              title="LinkedIn Profile"
             >
               <Linkedin size={15} /> LINKEDIN
             </a>
             <a
-              href="mailto:kishore@example.com"
+              href={SOCIAL_LINKS.email.mailto}
               className="flex items-center gap-1.5 hover:text-red transition-colors"
+              title={`Send email to ${SOCIAL_LINKS.email.address}`}
             >
               <Mail size={15} /> EMAIL
             </a>

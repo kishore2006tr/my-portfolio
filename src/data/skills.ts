@@ -59,14 +59,25 @@ export const skillsCategories: SkillCategory[] = [
     ]
   },
   {
-    title: "TOOLS & DEPLOYMENT",
+    title: "CLOUD & DEVOPS",
+    skills: [
+      { name: "AWS", level: "INTERMEDIATE" },
+      { name: "EC2", level: "INTERMEDIATE" },
+      { name: "S3", level: "INTERMEDIATE" },
+      { name: "IAM", level: "INTERMEDIATE" },
+      { name: "Lambda", level: "INTERMEDIATE" },
+      { name: "Cloud Deployment", level: "INTERMEDIATE" },
+      { name: "Serverless Architecture", level: "INTERMEDIATE" },
+      { name: "CI/CD Fundamentals", level: "INTERMEDIATE" }
+    ]
+  },
+  {
+    title: "DEV TOOLS",
     skills: [
       { name: "Git & GitHub", level: "ADVANCED" },
-      { name: "Docker", level: "ADVANCED" },
-      { name: "Kubernetes (EKS)", level: "INTERMEDIATE" },
-      { name: "AWS Cloud (EC2, S3)", level: "INTERMEDIATE" },
+      { name: "Docker", level: "INTERMEDIATE" },
       { name: "Linux / Bash", level: "ADVANCED" },
-      { name: "CI/CD Pipelines", level: "INTERMEDIATE" }
+      { name: "Postman", level: "ADVANCED" }
     ]
   }
 ];

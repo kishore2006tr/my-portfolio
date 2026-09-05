@@ -57,17 +57,17 @@ export default function ProjectSlugPage({ params }: { params: { slug: string } }
 
           <div className="hidden sm:flex items-center gap-2 font-semibold">
             <span className="text-red font-bold">{project.number}</span>
-            <span className="text-black font-semibold truncate max-w-xs">{project.title}</span>
+            <span className="text-black font-semibold truncate max-w-xs">{project.name || project.title}</span>
           </div>
 
           <div className="flex items-center gap-2">
-            {project.github && (
-              <a href={project.github} target="_blank" rel="noreferrer" className="p-2 border border-border text-muted hover:border-red hover:text-red rounded-sm transition-colors">
+            {(project.githubUrl || project.github) && (
+              <a href={project.githubUrl || project.github} target="_blank" rel="noreferrer" className="p-2 border border-border text-muted hover:border-red hover:text-red rounded-sm transition-colors">
                 <Github size={15} />
               </a>
             )}
-            {project.demo && (
-              <a href={project.demo} target="_blank" rel="noreferrer" className="p-2 border border-border text-muted hover:border-red hover:text-red rounded-sm transition-colors">
+            {(project.liveUrl || project.demo) && (
+              <a href={project.liveUrl || project.demo} target="_blank" rel="noreferrer" className="p-2 border border-border text-muted hover:border-red hover:text-red rounded-sm transition-colors">
                 <ExternalLink size={15} />
               </a>
             )}
@@ -86,10 +86,10 @@ export default function ProjectSlugPage({ params }: { params: { slug: string } }
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-8 mb-10">
             <div>
               <span className="font-mono text-xs font-bold tracking-wider text-red block mb-2">
-                {project.category}
+                {project.domain || project.category}
               </span>
               <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-black leading-tight mb-4">
-                {project.title}
+                {project.name || project.title}
               </h1>
               <p className="text-lg sm:text-xl text-muted leading-relaxed">
                 {project.tagline || project.description}
@@ -99,48 +99,74 @@ export default function ProjectSlugPage({ params }: { params: { slug: string } }
             <div className="p-6 bg-light border border-border rounded-sm flex flex-col gap-3.5 h-fit font-mono text-xs">
               <div className="flex justify-between border-b border-border pb-2.5">
                 <span className="font-bold text-muted">YEAR</span>
-                <span className="font-semibold text-black">{project.year || "2025"}</span>
+                <span className="font-semibold text-black">{project.year || "2025 - 2026"}</span>
               </div>
               <div className="flex justify-between border-b border-border pb-2.5">
                 <span className="font-bold text-muted">ROLE</span>
-                <span className="font-semibold text-black">{project.role || "Lead Engineer"}</span>
+                <span className="font-semibold text-black">{project.role || "Lead Developer / Architect"}</span>
               </div>
               <div className="flex justify-between border-b border-border pb-2.5">
-                <span className="font-bold text-muted">TEAM SIZE</span>
-                <span className="font-semibold text-black">{project.teamSize || "Individual"}</span>
+                <span className="font-bold text-muted">DOMAIN</span>
+                <span className="font-semibold text-black">{project.domain || project.category}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-bold text-muted">DOMAINS</span>
-                <span className="font-semibold text-black">{project.allCategories?.join(" / ") || project.category}</span>
+                <span className="font-bold text-muted">STATUS</span>
+                <span className="font-semibold text-red">VERIFIED LOCAL REPO</span>
               </div>
             </div>
           </div>
 
-          <div className="relative w-full h-[360px] sm:h-[480px] rounded-sm overflow-hidden border border-border">
-            <Image src={project.image} alt={project.title} fill className="object-cover" />
-            <div className="absolute bottom-4 right-4 font-mono text-xs font-bold text-white bg-black/90 border border-darkBorder px-4 py-2 rounded-sm flex items-center gap-2">
-              <span className="status-dot-pulse" /> VERIFIED CASE STUDY
+          <div className="relative w-full min-h-[260px] sm:min-h-[320px] rounded-sm overflow-hidden border border-border bg-black p-8 flex flex-col justify-between">
+            {project.image ? (
+              <Image src={project.image} alt={project.name || project.title || ''} fill className="object-cover" />
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#222_1px,transparent_1px),linear-gradient(to_bottom,#222_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none opacity-40" />
+                <div className="relative z-10">
+                  <span className="font-mono text-xs font-bold text-red tracking-widest uppercase mb-2 block">
+                    SYSTEM TELEMETRY // {project.number}
+                  </span>
+                  <h3 className="font-display text-3xl sm:text-4xl font-bold text-white uppercase">
+                    {project.name || project.title}
+                  </h3>
+                  <p className="font-mono text-xs text-zinc-400 mt-2">
+                    PRIMARY DOMAIN: {project.domain}
+                  </p>
+                </div>
+                <div className="relative z-10 flex flex-wrap gap-2 mt-8">
+                  {project.technologies.slice(0, 8).map((t) => (
+                    <span key={t} className="font-mono text-xs text-zinc-300 bg-darkSurface border border-darkBorder px-2.5 py-1 rounded-sm">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </>
+            )}
+            <div className="absolute bottom-4 right-4 font-mono text-xs font-bold text-white bg-black/90 border border-darkBorder px-4 py-2 rounded-sm flex items-center gap-2 z-10">
+              <span className="status-dot-pulse" /> VERIFIED CODEBASE
             </div>
           </div>
         </section>
 
         <div className="w-full h-px bg-border my-12" />
 
-        {/* THE PROBLEM */}
+        {/* KEY CAPABILITIES */}
         <section className="mb-16">
           <span className="font-mono text-xs font-bold tracking-widest text-red bg-red-subtle border border-red-border px-3 py-1 rounded-sm inline-block mb-4">
-            02 — THE PROBLEM
+            02 — CORE CAPABILITIES
           </span>
           <div className="p-8 sm:p-12 bg-light border border-border border-l-4 border-l-red rounded-sm">
-            <h2 className="font-display text-4xl font-bold tracking-tight text-black mb-2">
-              THE PROBLEM
+            <h2 className="font-display text-3xl font-bold tracking-tight text-black mb-6 uppercase">
+              IMPLEMENTED SYSTEM FEATURES
             </h2>
-            <h3 className="font-mono text-xs font-bold tracking-wider text-red mb-4">
-              {project.problemHeading || "REAL-WORLD BOTTLENECK"}
-            </h3>
-            <p className="text-base sm:text-lg text-muted leading-relaxed">
-              {project.problemDescription || project.description}
-            </p>
+            <div className="space-y-3">
+              {project.features.map((feat, idx) => (
+                <div key={idx} className="flex items-start gap-3 font-mono text-xs sm:text-sm text-black">
+                  <CheckCircle2 size={16} className="text-red flex-shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">{feat}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 

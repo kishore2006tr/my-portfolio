@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { BarChart3, TrendingUp, Activity, PieChart, Database, ArrowUpRight } from 'lucide-react';
-import { fadeUpVariant } from '@/lib/animations';
 
 export default function DataAnalyticsDashboard() {
   const [activeTab, setActiveTab] = useState<'kpi' | 'telemetry' | 'table'>('kpi');
@@ -19,7 +17,7 @@ export default function DataAnalyticsDashboard() {
               ANALYTICS ENGINE // 02
             </span>
             <h2 className="font-display text-4xl sm:text-5xl font-bold tracking-tight text-black uppercase">
-              DATA → INSIGHT → DECISION
+              CODE → MODEL → PRODUCT
             </h2>
           </div>
 
@@ -39,7 +37,7 @@ export default function DataAnalyticsDashboard() {
               }`}
               onClick={() => setActiveTab('telemetry')}
             >
-              STREAM TELEMETRY
+              DEVELOPMENT ACTIVITY
             </button>
             <button
               className={`font-mono text-xs font-bold px-3 py-1.5 rounded-sm transition-all ${
@@ -47,7 +45,7 @@ export default function DataAnalyticsDashboard() {
               }`}
               onClick={() => setActiveTab('table')}
             >
-              LOG TABLES
+              SYSTEM REGISTRY
             </button>
           </div>
         </div>
@@ -62,55 +60,63 @@ export default function DataAnalyticsDashboard() {
         >
           {activeTab === 'kpi' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="p-6 bg-white border border-border border-t-4 border-t-red rounded-sm flex flex-col justify-between">
-                <span className="font-mono text-xs font-bold text-muted">MODEL PRECISION</span>
+              <div className="p-6 bg-white border border-border border-t-4 border-t-red rounded-sm flex flex-col justify-between hover:border-red transition-all">
+                <span className="font-mono text-xs font-bold text-muted uppercase">PROJECTS</span>
                 <div className="my-4">
-                  <span className="font-display text-4xl font-bold text-black">98.4%</span>
-                  <span className="font-mono text-xs text-red font-bold block mt-1">+4.2% OVER BASELINE</span>
+                  <span className="font-display text-4xl sm:text-5xl font-bold text-black">10+</span>
+                  <span className="font-mono text-xs text-red font-bold block mt-1">COMPLETED BUILDS</span>
                 </div>
-                <span className="font-mono text-[10px] text-muted">VALIDATED DICOM SCANS</span>
+                <span className="font-mono text-[11px] text-muted leading-relaxed">
+                  AI, ML, Data Analytics & Full-Stack Projects
+                </span>
               </div>
 
-              <div className="p-6 bg-white border border-border border-t-4 border-t-black rounded-sm flex flex-col justify-between">
-                <span className="font-mono text-xs font-bold text-muted">INFERENCE LATENCY</span>
+              <div className="p-6 bg-white border border-border border-t-4 border-t-black rounded-sm flex flex-col justify-between hover:border-black transition-all">
+                <span className="font-mono text-xs font-bold text-muted uppercase">TECHNOLOGIES</span>
                 <div className="my-4">
-                  <span className="font-display text-4xl font-bold text-black">42ms</span>
-                  <span className="font-mono text-xs text-black font-bold block mt-1">INT8 TENSORRT</span>
+                  <span className="font-display text-4xl sm:text-5xl font-bold text-black">15+</span>
+                  <span className="font-mono text-xs text-black font-bold block mt-1">CORE TECH STACK</span>
                 </div>
-                <span className="font-mono text-[10px] text-muted">GPU ACCELERATED</span>
+                <span className="font-mono text-[11px] text-muted leading-relaxed">
+                  Programming Languages, Frameworks & Tools
+                </span>
               </div>
 
-              <div className="p-6 bg-white border border-border border-t-4 border-t-red rounded-sm flex flex-col justify-between">
-                <span className="font-mono text-xs font-bold text-muted">DATA THROUGHPUT</span>
+              <div className="p-6 bg-white border border-border border-t-4 border-t-red rounded-sm flex flex-col justify-between hover:border-red transition-all">
+                <span className="font-mono text-xs font-bold text-muted uppercase">AI / ML MODELS</span>
                 <div className="my-4">
-                  <span className="font-display text-4xl font-bold text-black">100K</span>
-                  <span className="font-mono text-xs text-red font-bold block mt-1">TICKS / SECOND</span>
+                  <span className="font-display text-4xl sm:text-5xl font-bold text-black">10+</span>
+                  <span className="font-mono text-xs text-red font-bold block mt-1">TRAINED & EVALUATED</span>
                 </div>
-                <span className="font-mono text-[10px] text-muted">RUST ZERO-COPY PIPELINE</span>
+                <span className="font-mono text-[11px] text-muted leading-relaxed">
+                  Classification, Prediction, NLP & Computer Vision Models
+                </span>
               </div>
 
-              <div className="p-6 bg-white border border-border border-t-4 border-t-black rounded-sm flex flex-col justify-between">
-                <span className="font-mono text-xs font-bold text-muted">ACTIVE USERS</span>
+              <div className="p-6 bg-white border border-border border-t-4 border-t-black rounded-sm flex flex-col justify-between hover:border-black transition-all">
+                <span className="font-mono text-xs font-bold text-muted uppercase">FULL-STACK APPLICATIONS</span>
                 <div className="my-4">
-                  <span className="font-display text-4xl font-bold text-black">35,000+</span>
-                  <span className="font-mono text-xs text-muted block mt-1">GLOBAL USERS</span>
+                  <span className="font-display text-4xl sm:text-5xl font-bold text-black">5+</span>
+                  <span className="font-mono text-xs text-black font-bold block mt-1">END-TO-END PLATFORMS</span>
                 </div>
-                <span className="font-mono text-[10px] text-muted">ENTERPRISE ADOPTION</span>
+                <span className="font-mono text-[11px] text-muted leading-relaxed">
+                  Frontend → Backend → Database Applications
+                </span>
               </div>
             </div>
           )}
 
           {activeTab === 'telemetry' && (
             <div className="flex flex-col gap-6">
-              <div className="flex items-center justify-between font-mono text-xs">
-                <span className="font-bold text-black">LIVE STREAM TELEMETRY // CLICKHOUSE COLUMNS</span>
-                <span className="text-red font-bold flex items-center gap-1">
-                  <span className="status-dot-pulse"></span> STREAMING 100K TICKS/SEC
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs">
+                <span className="font-bold text-black">DEVELOPMENT VELOCITY // 12-CYCLE PROJECT CADENCE</span>
+                <span className="text-red font-bold flex items-center gap-1.5">
+                  <span className="status-dot-pulse"></span> ACTIVE LOCAL BUILDS & ITERATIONS
                 </span>
               </div>
 
               {/* Bar Chart Visualizer */}
-              <div className="h-64 flex items-end gap-3 pt-8 pb-4 px-4 bg-white border border-border rounded-sm">
+              <div className="h-64 flex items-end gap-2 sm:gap-3 pt-8 pb-4 px-4 bg-white border border-border rounded-sm">
                 {[65, 80, 45, 90, 75, 95, 60, 85, 100, 70, 90, 80].map((val, idx) => (
                   <div key={idx} className="flex-1 flex flex-col items-center h-full justify-end gap-2 group">
                     <div
@@ -119,46 +125,63 @@ export default function DataAnalyticsDashboard() {
                       }`}
                       style={{ height: `${val}%` }}
                     />
-                    <span className="font-mono text-[10px] text-muted">{idx + 1}h</span>
+                    <span className="font-mono text-[10px] text-muted">C-{String(idx + 1).padStart(2, '0')}</span>
                   </div>
                 ))}
               </div>
+              <p className="font-mono text-[11px] text-muted">
+                Consistent sprint velocity across machine learning model evaluations, backend APIs, and responsive user interfaces.
+              </p>
             </div>
           )}
 
           {activeTab === 'table' && (
             <div className="overflow-x-auto bg-white border border-border rounded-sm font-mono text-xs">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full text-left border-collapse min-w-[640px]">
                 <thead>
                   <tr className="border-b border-border bg-light text-muted uppercase">
                     <th className="p-3">SYSTEM ID</th>
-                    <th className="p-3">PIPELINE DOMAIN</th>
-                    <th className="p-3">METRIC VALUE</th>
-                    <th className="p-3">LATENCY</th>
+                    <th className="p-3">CAPABILITY DOMAIN</th>
+                    <th className="p-3">CORE TECHNOLOGIES</th>
+                    <th className="p-3">PRIMARY DELIVERABLES</th>
                     <th className="p-3">STATUS</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
                   <tr>
                     <td className="p-3 font-bold text-black">SYS-01</td>
-                    <td className="p-3">VisionAI Pathology</td>
-                    <td className="p-3 text-red font-bold">98.4% Accuracy</td>
-                    <td className="p-3">42ms</td>
-                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ONLINE</span></td>
+                    <td className="p-3 font-semibold text-black">AI & Machine Learning</td>
+                    <td className="p-3 text-muted">Python • Scikit-learn • PyTorch • OpenCV</td>
+                    <td className="p-3 text-red font-semibold">Classification & Vision Models</td>
+                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ACTIVE</span></td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-black">SYS-02</td>
-                    <td className="p-3">Nexus RAG LLM</td>
-                    <td className="p-3 font-bold">1.5M Docs Indexed</td>
-                    <td className="p-3">115ms</td>
-                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ONLINE</span></td>
+                    <td className="p-3 font-semibold text-black">Generative AI & RAG</td>
+                    <td className="p-3 text-muted">Gemini • OpenAI • LangChain • RAG</td>
+                    <td className="p-3 font-semibold">Conversational LLMs & RAG</td>
+                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ACTIVE</span></td>
                   </tr>
                   <tr>
                     <td className="p-3 font-bold text-black">SYS-03</td>
-                    <td className="p-3">Algo Risk Stream</td>
-                    <td className="p-3 text-red font-bold">100k Ticks/Sec</td>
-                    <td className="p-3">18ms</td>
-                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ONLINE</span></td>
+                    <td className="p-3 font-semibold text-black">Web Applications</td>
+                    <td className="p-3 text-muted">React • Next.js • Node.js • Supabase</td>
+                    <td className="p-3 text-red font-semibold">Full-Stack Web Platforms</td>
+                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ACTIVE</span></td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-bold text-black">SYS-04</td>
+                    <td className="p-3 font-semibold text-black">Data Analytics</td>
+                    <td className="p-3 text-muted">Python • Pandas • NumPy • SQL • Power BI</td>
+                    <td className="p-3 font-semibold">EDA & Interactive Dashboards</td>
+                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ACTIVE</span></td>
+                  </tr>
+                  <tr>
+                    <td className="p-3 font-bold text-black">SYS-05</td>
+                    <td className="p-3 font-semibold text-black">Cloud & Deployment</td>
+                    <td className="p-3 text-muted">AWS • EC2 • S3 • IAM • Lambda</td>
+                    <td className="p-3 text-red font-semibold">Cloud Infrastructure & Deployment</td>
+                    <td className="p-3"><span className="px-2 py-0.5 bg-red-subtle text-red font-bold rounded-sm">ACTIVE</span></td>
                   </tr>
                 </tbody>
               </table>

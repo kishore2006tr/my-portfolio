@@ -1,66 +1,77 @@
-export interface ExperienceItem {
+export interface EducationItem {
   id: string;
-  category: "EDUCATION" | "EXPERIENCE" | "INTERNSHIPS" | "CERTIFICATIONS" | "ACHIEVEMENTS";
-  title: string;
-  organization: string;
-  location?: string;
-  period: string;
-  description: string;
-  highlights?: string[];
+  institution: string;
+  degree: string;
+  department?: string;
+  scoreLabel: string;
+  scoreValue: string;
 }
 
-export const experienceData: ExperienceItem[] = [
+export interface InternshipItem {
+  id: string;
+  company: string;
+  role: string;
+  duration: string;
+  domain: string;
+  points: string[];
+}
+
+export const educationData: EducationItem[] = [
   {
-    id: "exp-01",
-    category: "EDUCATION",
-    title: "Bachelor of Technology in Computer Science & Engineering",
-    organization: "Specialization in Artificial Intelligence & Machine Learning",
-    period: "2022 - 2026",
-    description: "Focusing on Deep Learning, Computer Vision, Distributed Systems, Database Management Systems, and Data Structures & Algorithms.",
-    highlights: [
-      "Department Rank Top 5%",
-      "Lead Organizer of Annual AI & Robotics Symposium",
-      "Published research paper on low-latency vision inference"
-    ]
+    id: "edu-01",
+    institution: "S.A. Engineering College",
+    degree: "Bachelor of Engineering / Technology",
+    department: "Computer Science & Engineering",
+    scoreLabel: "CGPA",
+    scoreValue: "8.2",
   },
   {
-    id: "exp-02",
-    category: "INTERNSHIPS",
-    title: "AI Systems & Full-Stack Development Intern",
-    organization: "NexusTech Innovation Labs",
-    period: "Summer 2025",
-    description: "Built high-throughput RAG document ingestion pipelines and microservice APIs connecting vector databases with Llama 3 LLM models.",
-    highlights: [
-      "Reduced vector retrieval query latency by 35%",
-      "Architected multi-tenant role-gated FastAPI service"
-    ]
+    id: "edu-02",
+    institution: "Jaya Jaya Sankara International School",
+    degree: "Higher Secondary Education (12th Grade)",
+    scoreLabel: "Percentage",
+    scoreValue: "81.33%",
+  },
+];
+
+export const internshipData: InternshipItem[] = [
+  {
+    id: "intern-01",
+    company: "NOVI TECH",
+    role: "AI/ML & Data Analysis Intern",
+    duration: "3 Months",
+    domain: "AI/ML & DATA ANALYSIS",
+    points: [
+      "Worked on Machine Learning and Artificial Intelligence concepts.",
+      "Gained practical experience in Data Analysis.",
+      "Worked with data preprocessing, analysis, and machine learning workflows.",
+      "Developed hands-on understanding of AI/ML applications and model development.",
+    ],
   },
   {
-    id: "exp-03",
-    category: "EXPERIENCE",
-    title: "Lead Developer & Quantitative Analyst",
-    organization: "Algorithmic Analytics Project Group",
-    period: "2024 - Present",
-    description: "Designed low-latency financial streaming pipelines and automated risk evaluation dashboards streaming 100k ticks/second.",
-    highlights: [
-      "Integrated Rust SIMD deserializers for nanosecond parsing",
-      "Engineered WebGL order book visualization canvas"
-    ]
+    id: "intern-02",
+    company: "Infosys Springboard",
+    role: "Machine Learning Intern",
+    duration: "2 Months",
+    domain: "MACHINE LEARNING",
+    points: [
+      "Worked on Machine Learning concepts and practical applications.",
+      "Developed knowledge of data preprocessing, model building, and evaluation.",
+      "Applied machine learning techniques to solve practical problems.",
+      "Strengthened understanding of the machine learning development lifecycle.",
+    ],
   },
   {
-    id: "exp-04",
-    category: "CERTIFICATIONS",
-    title: "AWS Certified Solutions Architect & Machine Learning Specialist",
-    organization: "Amazon Web Services",
-    period: "2025",
-    description: "Validated expertise in cloud infrastructure, GPU node auto-scaling, distributed training, and microservice deployments."
+    id: "intern-03",
+    company: "CodeAlpha",
+    role: "Machine Learning Intern",
+    duration: "3 Months",
+    domain: "MACHINE LEARNING",
+    points: [
+      "Worked on practical Machine Learning projects.",
+      "Applied machine learning algorithms to real-world datasets.",
+      "Performed data preprocessing, analysis, and model development.",
+      "Gained hands-on experience in implementing and evaluating ML models.",
+    ],
   },
-  {
-    id: "exp-05",
-    category: "ACHIEVEMENTS",
-    title: "1st Place Winner — National AI & Full-Stack Hackathon",
-    organization: "National Tech Summit 2025",
-    period: "2025",
-    description: "Awarded top place among 150+ teams for building an edge-assisted pathology diagnostic scanner with sub-50ms DICOM inference."
-  }
 ];

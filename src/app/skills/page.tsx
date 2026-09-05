@@ -2,17 +2,26 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Code2, Database, BarChart3, Wrench, CheckCircle2 } from 'lucide-react';
+import { Cpu, Code2, Database, BarChart3, Wrench, Cloud, CheckCircle2 } from 'lucide-react';
 import { skillsCategories } from '@/data/skills';
 import { fadeUpVariant, staggerContainerVariant } from '@/lib/animations';
 
-const CATEGORY_ICONS = [Cpu, Code2, Database, BarChart3, Wrench];
+const getCategoryIcon = (title: string) => {
+  if (title.includes('AI / ML')) return Cpu;
+  if (title.includes('FULL-STACK')) return Code2;
+  if (title.includes('DATABASE')) return Database;
+  if (title.includes('ANALYTICS')) return BarChart3;
+  if (title.includes('CLOUD')) return Cloud;
+  return Wrench;
+};
 
 export default function SkillsPage() {
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
 
   const filteredCategories = skillsCategories.filter((cat) => {
     if (selectedFilter === 'ALL') return true;
+    if (selectedFilter === 'CLOUD') return cat.title.includes('CLOUD');
+    if (selectedFilter === 'TOOLS' || selectedFilter === 'DEV TOOLS') return cat.title.includes('TOOLS');
     return cat.title.includes(selectedFilter);
   });
 
@@ -44,7 +53,7 @@ export default function SkillsPage() {
 
         {/* Category Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-12 border-b border-border">
-          {['ALL', 'AI / ML', 'FULL-STACK', 'DATABASE', 'ANALYTICS', 'TOOLS'].map((filter) => {
+          {['ALL', 'AI / ML', 'FULL-STACK', 'DATABASE', 'ANALYTICS', 'CLOUD', 'TOOLS'].map((filter) => {
             const isActive = selectedFilter === filter;
             return (
               <button
@@ -64,8 +73,8 @@ export default function SkillsPage() {
 
         {/* Skills Categories Grid */}
         <div className="space-y-12">
-          {filteredCategories.map((cat, catIdx) => {
-            const Icon = CATEGORY_ICONS[catIdx % CATEGORY_ICONS.length];
+          {filteredCategories.map((cat) => {
+            const Icon = getCategoryIcon(cat.title);
             return (
               <motion.div
                 key={cat.title}
