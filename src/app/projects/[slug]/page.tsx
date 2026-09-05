@@ -1,49 +1,39 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, Github, ExternalLink, Activity, Cpu, 
+  ArrowLeft, Github, ExternalLink, Activity, Cpu, 
   Database, CheckCircle2, AlertTriangle, ShieldCheck, Play, Terminal, 
   RefreshCw, FileText
 } from 'lucide-react';
-import { projectsData, Project } from '@/data/projects';
+import { projectsData } from '@/data/projects';
+
+export async function generateStaticParams() {
+  return projectsData.map((project) => ({
+    slug: project.slug,
+  }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const project = projectsData.find((p) => p.slug === params.slug);
+  if (!project) {
+    return {
+      title: 'Project Not Found | Kishore',
+    };
+  }
+  return {
+    title: `${project.name || project.title} | Kishore Portfolio`,
+    description: project.description || project.tagline,
+  };
+}
 
 export default function ProjectSlugPage({ params }: { params: { slug: string } }) {
   const project = projectsData.find((p) => p.slug === params.slug);
 
   if (!project) {
-    return (
-      <div className="py-24 text-center max-w-xl mx-auto px-4">
-        <h1 className="font-display text-4xl font-bold mb-4">PROJECT NOT FOUND</h1>
-        <p className="text-muted mb-6">The project slug "{params.slug}" could not be located in the repository.</p>
-        <Link href="/projects" className="font-mono text-xs font-bold text-white bg-black px-6 py-3 rounded-sm inline-block">
-          ← BACK TO PROJECTS
-        </Link>
-      </div>
-    );
+    notFound();
   }
-
-  const [demoInput, setDemoInput] = useState(project.sampleInputs?.[0] || 'Sample Input Query');
-  const [demoOutput, setDemoOutput] = useState(project.sampleOutputs?.[0] || 'Sample Output Telemetry');
-  const [isSimulating, setIsSimulating] = useState(false);
-
-  const handleRunSimulator = (inputVal?: string) => {
-    const query = inputVal || demoInput;
-    setIsSimulating(true);
-    setTimeout(() => {
-      const idx = project.sampleInputs?.indexOf(query) ?? -1;
-      if (idx !== -1 && project.sampleOutputs?.[idx]) {
-        setDemoOutput(project.sampleOutputs[idx]);
-      } else {
-        setDemoOutput(`Processed query [${query}] -> Inference latency: 42ms (Success)`);
-      }
-      setIsSimulating(false);
-    }, 600);
-  };
 
   return (
     <div className="bg-white pb-24">
