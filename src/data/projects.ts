@@ -80,12 +80,13 @@ export const projectsData: Project[] = [
     liveUrl: "",
   },
   {
-    name: "AI Market Analysis",
+    name: "AI Job Market Analytics",
     slug: "ai-market-analysis",
     number: "02",
     domain: "Data Analytics / AI",
     secondaryDomains: ["Data Analytics", "AI / ML"],
     featured: true,
+    tagline: "Tech Careers & Market Intelligence",
     description: "AI-driven job market and hiring intelligence platform that analyzes employment trends, salary distributions, and technical skill demands with personalized career recommendations.",
     technologies: [
       "Next.js 16",
@@ -107,8 +108,10 @@ export const projectsData: Project[] = [
       "Comprehensive company hiring directories, saved job tracking, and email alerts via Nodemailer",
       "Secure user authentication and data persistence with Supabase Row Level Security",
     ],
-    githubUrl: "",
-    liveUrl: "",
+    githubUrl: "https://github.com/kishore2006tr/AI-Market-Analysis",
+    liveUrl: "https://ai-market-analysis-one.vercel.app/",
+    github: "https://github.com/kishore2006tr/AI-Market-Analysis",
+    demo: "https://ai-market-analysis-one.vercel.app/",
   },
   {
     name: "AI Resume Analyzer",
